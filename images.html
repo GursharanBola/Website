@@ -7,13 +7,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #FFF; /* Dark background for better contrast */
+            background-color: #FFF; 
             margin: 0;
-            height: 100vh; /* Fill the entire screen height */
-            cursor: pointer; /* Indicates the screen is clickable */
-            overflow: hidden; /* Prevents scrolling */
+            height: 100vh; 
+            cursor: pointer; 
+            overflow: hidden; 
         }
-        /* This is entirely not my own code this was all just generated since it is simple enough to generate*/
+
         .container {
             position: relative;
             width: 100%;
@@ -25,15 +25,16 @@
 
         img {
             position: absolute;
-            /* Adjust this percentage to control the "zoom out" level */
             max-width: 60%; 
             max-height: 80vh;
             opacity: 0;
             transition: opacity 0.4s ease-in-out;
-            pointer-events: none; /* Allows the click to pass through to the body */
+            pointer-events: none;
+            /* Added border property below */
+            border: 2px solid #000;
+            box-sizing: border-box; /* Ensures border is included in image dimensions */
         }
 
-        /* The class that makes an image visible */
         img.active {
             opacity: 1;
         }
@@ -58,9 +59,9 @@
 
         function showNextImage() {
             images[currentIndex].classList.remove('active');
-            
+
             currentIndex = (currentIndex + 1) % images.length;
-            
+
             images[currentIndex].classList.add('active');
         }
     </script>
