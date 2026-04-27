@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Click Gallery</title>
+    <title></title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #FFF; /* Changed to black to see image boundaries */
+            background-color: #FFF; /* Dark background for better contrast */
             margin: 0;
-            height: 100vh;
-            cursor: pointer;
-            overflow: hidden;
-            font-family: sans-serif;
+            height: 100vh; /* Fill the entire screen height */
+            cursor: pointer; /* Indicates the screen is clickable */
+            overflow: hidden; /* Prevents scrolling */
         }
-
+        /* This is entirely not my own code this was all just generated since it is simple enough to generate*/
         .container {
             position: relative;
             width: 100%;
@@ -26,31 +25,21 @@
 
         img {
             position: absolute;
-            /* Zoomed out further for testing: 40% of screen width */
-            max-width: 40%; 
-            max-height: 70vh;
+            /* Adjust this percentage to control the "zoom out" level */
+            max-width: 60%; 
+            max-height: 80vh;
             opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            pointer-events: none;
-            border: 2px solid #333; /* Visual aid to see the image box */
+            transition: opacity 0.4s ease-in-out;
+            pointer-events: none; /* Allows the click to pass through to the body */
         }
 
+        /* The class that makes an image visible */
         img.active {
             opacity: 1;
-        }
-
-        /* Help text in case the images are missing */
-        .debug-text {
-            color: #444;
-            position: absolute;
-            bottom: 20px;
-            pointer-events: none;
         }
     </style>
 </head>
 <body onclick="showNextImage()">
-
-    <div class="debug-text">Click anywhere to cycle images</div>
 
     <div class="container">
         <img src="image1.png" class="active">
@@ -68,18 +57,11 @@
         const images = document.querySelectorAll('img');
 
         function showNextImage() {
-            if (images.length === 0) return;
-
-            // Hide current
             images[currentIndex].classList.remove('active');
             
-            // Move to next
             currentIndex = (currentIndex + 1) % images.length;
             
-            // Show next
             images[currentIndex].classList.add('active');
-            
-            console.log("Switched to image index: " + currentIndex);
         }
     </script>
 </body>
