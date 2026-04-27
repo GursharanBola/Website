@@ -5,30 +5,64 @@
     <style>
         body {
             display: flex;
-            flex-direction: column;
-            align-items: center; /* Centers everything */
-            background-color: #FFF;
-            color: white;
+            justify-content: center;
+            align-items: center;
+            background-color: #FFF; /* Dark background for better contrast */
             margin: 0;
-            padding: 40px;
+            height: 100vh; /* Fill the entire screen height */
+            cursor: pointer; /* Indicates the screen is clickable */
+            overflow: hidden; /* Prevents scrolling */
         }
+        /* This is entirely not my own code this was all just generated since it is simple enough to generate*/
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         img {
-            margin-bottom: 60px;
-            /* Browsers that support TIFF will show them at 100% width */
-            max-width: 100%; 
-            height: auto;
+            position: absolute;
+            /* Adjust this percentage to control the "zoom out" level */
+            max-width: 60%; 
+            max-height: 80vh;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            pointer-events: none; /* Allows the click to pass through to the body */
+        }
+
+        /* The class that makes an image visible */
+        img.active {
+            opacity: 1;
         }
     </style>
 </head>
-<body>
-    <h1></h1>
-    <img src="image1.png">
-    <img src="image2.png">
-    <img src="image3.png">
-    <img src="image5.png">
-    <img src="image6.png">
-    <img src="image7.png">
-    <img src="image8.png">
-    <img src="image9.png">
+<body onclick="showNextImage()">
+
+    <div class="container">
+        <img src="image1.png" class="active">
+        <img src="image2.png">
+        <img src="image3.png">
+        <img src="image5.png">
+        <img src="image6.png">
+        <img src="image7.png">
+        <img src="image8.png">
+        <img src="image9.png">
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('img');
+
+        function showNextImage() {
+            images[currentIndex].classList.remove('active');
+            
+            currentIndex = (currentIndex + 1) % images.length;
+            
+            images[currentIndex].classList.add('active');
+        }
+    </script>
 </body>
 </html>
