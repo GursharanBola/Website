@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaTeX Math Document</title>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], 
+        processEscapes: true
+      }
+    };
+    </script>
+
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #000000;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h1, h2, h3 {
+            font-family: "Times New Roman", Times, serif;
+            font-weight: normal;
+        }
+        h1 {
+            border-bottom: 1px solid #000000;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Fast Powers</h1>
+
+    <p>This primarily serves as a test post, but I wanted to write something about a fast power function for unsigned integers that runs in $O(\log n)$.</p>
+    
+    <p>The motivation for why I crossed paths with this problem was because I wanted a fast power function for computing the spectral brdf for rasterization. 
+    Since I am using C++ and std::pow is slow (not really, g++ will probably optimize it) I thought that writing a fast power function would be a fun challenge. </p>
+    
+    <p>Since this function needs to be quick, recursion is out of the window. So we need some loop to do this quickly, but how? Well, let's begin with an example. 
+    \[
+    x^{21}
+    \]
+    this is equal to 
+    \[
+    x^{21} = x^{16} \cdot x^4 \cdot x 
+    \]
+    notice the binary rep of $\mathtt{21}_{10}$ is $\mathtt{10101}_{2}$ and each 1 corresponds to which power of 2 we need. To be quick we should store the last
+    highest element we made. The program should also use $\mathtt{>>1}$ to find the next $\mathtt{1}_{2}$ in pow and like that you have a fast power function!
+    </p>
+
+  <p>
+  This is actually a well-known idea and a common implementation looks like: 
+  </p>
+    
+<pre><code style="font-family: monospace; background: #f4f4f4; display: block; padding: 12px; border-radius: 4px;">
+double fastPow(double val, unsigned int exp) {
+    double res = 1.0;
+    while (exp > 0) {
+        if (exp & 1) {
+            res *= val;
+        }
+        val *= val;
+        exp >>= 1;
+    }
+    return res;
+}
+</code></pre>
+
+<p>
+A footnote about this function is that pow must be an unsigned int, because of two's complement if -1 is inputted the program experiences biblical levels of overflow. 
+You can handle this edge case with a check for negative exponent without much loss in numbers we can represent, but where is the fun in that?
+</p>
+
+</body>
+</html>
