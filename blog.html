@@ -46,9 +46,9 @@
     <p>This primarily serves as a test post, but I wanted to write something about a fast power function for unsigned integers that runs in $O(\log n)$.</p>
     
     <p>The motivation for why I crossed paths with this problem was because I wanted a fast power function for computing the spectral brdf for rasterization. 
-    Since I am using C++ and std::pow is slow (not really, g++ will probably optimize it) I thought that writing a fast power function would be a fun challenge. </p>
+    Since I am using C++ and $\mathtt{std::pow}$ is slow (not really, g++ will probably optimize it) I thought that writing a fast power function would be a fun challenge. </p>
     
-    <p>Since this function needs to be quick, recursion is out of the window. So we need some loop to do this quickly, but how? Well, let's begin with an example. 
+    <p>Since this function needs to be quick, recursion is out of the window. So we need some loop to do this quickly, but how? Well, let's start with a simple example: 
     \[
     x^{21}
     \]
@@ -57,14 +57,21 @@
     x^{21} = x^{16} \cdot x^4 \cdot x 
     \]
     notice the binary rep of $\mathtt{21}_{10}$ is $\mathtt{10101}_{2}$ and each 1 corresponds to which power of 2 we need. To be quick we should store the last
-    highest element we made. The program should also use $\mathtt{>>1}$ to find the next $\mathtt{1}_{2}$ in pow and like that you have a fast power function!
+    highest element we made. The program should also probably use a bunch of bitwise operations as these functions often do, to be quick and look flashy. And just like that
+    you have a function that can do powers quickly!!
+    </p>
+
+    <p>
+    The way that I presented this I feel is disingenuous. The real way that I stumbled onto this solution, is to not notice an exponent can be made into a sum of 
+    perfect powers of two. Instead I noticed that the problem simplified greatly if the power was a power of two and worked back from there.
     </p>
 
   <p>
-  This is actually a well-known idea and a common implementation looks like: 
+  Since this is actually a well-known idea a common implementation looks like this: 
   </p>
     
 <pre><code style="font-family: monospace; background: #f4f4f4; display: block; padding: 12px; border-radius: 4px;">
+// this is C++, I don't know Rust 
 double fastPow(double val, unsigned int exp) {
     double res = 1.0;
     while (exp > 0) {
