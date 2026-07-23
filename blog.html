@@ -86,8 +86,9 @@ double fastPow(double val, unsigned int exp) {
 </code></pre>
 
 <p>
-A footnote about this function is that pow must be an unsigned int, because of two's complement if -1 is inputted the program experiences biblical levels of overflow. 
-You can handle this edge case with a check for negative exponent without much loss in numbers we can represent, but where is the fun in that?
+A footnote about this function is that pow must be an unsigned int because the way that the program shifts bits. Because of two's complement, 
+if -1 is inputted the program experiences biblical levels of overflow. You can handle this edge case with a check for negative exponent without 
+much loss in numbers we can represent, but where is the fun in that?
 </p>
 
 </body>
