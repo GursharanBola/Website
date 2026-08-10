@@ -36,12 +36,28 @@
         h1 {
             border-bottom: 1px solid #000000;
             padding-bottom: 5px;
+            
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .next-link {
+            font-size: 18px; 
+            color: blue;
+            text-decoration: none;
+        }
+        .next-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
-<body>
 
-    <h1>Fast Powers</h1>
+<body>
+    <h1>
+        <span>Fast Powers</span>
+        <a href="blog1.html" class="next-link">next&gt;</a>
+    </h1>
 
     <p>This primarily serves as a test post, but I wanted to write something about a fast power function for unsigned integers that runs in $O(\log n)$.</p>
     
