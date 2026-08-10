@@ -59,7 +59,7 @@
         <a href="blog1.html" class="next-link">next&gt;</a>
     </h1>
 
-    <p>This primarily serves as a test post, but I wanted to write something about a fast power function for unsigned integers that runs in $O(\log n)$.</p>
+    <p>This primarily serves as a test post, but I wanted to write something about computing postive integer powers in $O(\log n)$ time.</p>
     
     <p>The motivation for why I crossed paths with this problem was because I wanted a fast power function for computing the spectral brdf for rasterization. 
     Since I am using C++ and $\mathtt{std::pow}$ is slow (not really, g++ will probably optimize it) I thought that writing a fast power function would be a fun challenge. </p>
@@ -72,14 +72,16 @@
     \[
     x^{21} = x^{16} \cdot x^4 \cdot x 
     \]
-    notice the binary rep of $\mathtt{21}_{10}$ is $\mathtt{10101}_{2}$ and each 1 corresponds to which power of 2 we need. To be quick we should store the last
-    highest element we made. The program should also probably use a bunch of bitwise operations as these functions often do, to be quick and look flashy. And just like that
-    you have a function that can do powers quickly!!
+    notice the binary rep of $\mathtt{21}_{10}$ is $\mathtt{10101}_{2}$ and each 1 corresponds to which power of 2 we need. To be quick the program should compute $x^{2^{i}}$
+    where i is the index of the ith bit of the power. To check if the ith bit is 1 shift bits right by $\mathtt{i}$ and & with 1 to get a boolean value that tells us if the ith bit
+    is a 1. If this boolean is true, multiply $x^{2^{i}}$ with the return value. If you keep doing this until no more 1s exist in the power's binary representation you 
+    have a function that can compute powers quickly!
     </p>
 
     <p>
-    The way that I presented this feels disingenuous. The real way that I stumbled onto this solution, is to not notice an exponent can be made into a sum of 
-    perfect powers of two. Instead I noticed that the problem simplified greatly if the power was a power of two and worked back from there.
+    Although this explanation is nice and clean the way that I presented this feels disingenuous. The real way that I stumbled onto this solution, 
+    is to not notice an exponent can be made into a sum of perfect powers of two. Instead I noticed that the problem simplified greatly if the power 
+    was a power of two and worked back from there.
     </p>
 
   <p>
